@@ -79,10 +79,10 @@ author:
       url: "https://instagram.com/brandonealba"
 
 footer:
-  - label: "Davis, CA"
+  links:
+    - label: "Davis, CA"
       icon: "far fa-fw fa-map-marker-alt"
       url: "mailto:branalba42@gmail.com"
-  links:
     - label: "Email"
       icon: "far fa-fw fa-envelope"
       url: "mailto:branalba42@gmail.com"
