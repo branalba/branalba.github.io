@@ -1,9 +1,6 @@
 ---
 title: "Guide to Transitioning to Autodesk Fusion 360 from EAGLE"
 date: 2020-09-15T15:34:30-04:00
-tags:
-  - PCB
-  - guide
 ---
 
 If you're anything like me, you were interested Autodesk's decision to port EAGLE into Fusion 360, effectively merging the two programs, but were unsure with how to fully make the transition between the two pieces of software. This guide is my attempt to make that switch as painless as possible and go over what is the same -- and what is different -- between EAGLE and its 3D design counterpart.
