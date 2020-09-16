@@ -63,7 +63,7 @@ author:
   bio: "3rd-year electrical engineering student with a focus in PCB design, analog circuit design and analysis, and embedded systems. Currently lead of UC Davis satellite club electrical team, physics tutor at UC Davis, and PCB CAD Engineer at Ravata Solutions"
   links:
     - label: "LinkedIn"
-      icon: "fas fa-fw fa-linkedin-in"
+      icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/brandonealba/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
@@ -75,7 +75,7 @@ author:
 footer:
   links:
     - label: "LinkedIn"
-      icon: "fas fa-fw fa-linkedin-in"
+      icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/brandonealba/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
