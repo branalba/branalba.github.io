@@ -6,7 +6,7 @@ tags:
   - guide
 ---
 
-If you're anything like me, you were interested Autodesk's decision to port EAGLE into Fusion 360, effectively merging the two programs, but were unsure with how to fully make the transition between to two pieces of software. This guide is my attempt to make that switch as painless as possible and go over what is the same -- and what is different -- between EAGLE and its 3D design counterpart.
+If you're anything like me, you were interested Autodesk's decision to port EAGLE into Fusion 360, effectively merging the two programs, but were unsure with how to fully make the transition between the two pieces of software. This guide is my attempt to make that switch as painless as possible and go over what is the same -- and what is different -- between EAGLE and its 3D design counterpart.
 
 ## File System
 This guide is made with the assumption that the reader is already familiar with Fusion's file system, including the cloud storage, version control, and Fusion Teams. The new electronics design capabilities of Fusion fit seamlessly into that filesystem, meaning that out of the box your PCBs will now have cloud backups and the ability to roll back to previous versions, an area in which EAGLE was serverely behind the times. 
