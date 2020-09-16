@@ -1,0 +1,5 @@
+---
+permalink: /resume/
+title: "Resume"
+---
+
