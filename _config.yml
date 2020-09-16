@@ -63,8 +63,8 @@ author:
   bio: "3rd-year electrical engineering student with a focus in PCB design, analog circuit design and analysis, and embedded systems. Currently lead of UC Davis satellite club electrical team, physics tutor at UC Davis, and PCB CAD Engineer at Ravata Solutions"
   links:
     - label: "Davis, CA"
-      icon: "far fa-fw fa-map-marker-alt"
-      url: "mailto:branalba42@gmail.com"
+      icon: "fas fa-fw fa-map-marker-alt"
+      url: "https://goo.gl/maps/obFEqTezmRUBPs3P8"
     - label: "Email"
       icon: "far fa-fw fa-envelope"
       url: "mailto:branalba42@gmail.com"
@@ -81,8 +81,8 @@ author:
 footer:
   links:
     - label: "Davis, CA"
-      icon: "far fa-fw fa-map-marker-alt"
-      url: "mailto:branalba42@gmail.com"
+      icon: "fas fa-fw fa-map-marker-alt"
+      url: "https://goo.gl/maps/obFEqTezmRUBPs3P8"
     - label: "Email"
       icon: "far fa-fw fa-envelope"
       url: "mailto:branalba42@gmail.com"
