@@ -1,5 +1,5 @@
 ---
-title: "Guide to Transitioning to Autodesk Fusion 360 from EAGLE (In Progress)"
+title: "Guide to Transitioning from Autodesk EAGLE to Fusion 360 (In Progress)"
 date: 2020-09-15T15:34:30-04:00
 toc: true
 toc_sticky: true
@@ -10,7 +10,15 @@ If you're anything like me, you were interested Autodesk's decision to port EAGL
 ## File System
 This guide is made with the assumption that the reader is already familiar with Fusion's file system, including the cloud storage, version control, and Fusion Teams. The new electronics design capabilities of Fusion fit seamlessly into that filesystem, meaning that out of the box your PCBs will now have cloud backups and the ability to roll back to previous versions, an area in which EAGLE was severely behind the times. 
 
-Fusion schematics and PCBs have full compatibility with EAGLE's .sch and .brd file types, meaning you can simply click "upload" from the folders menu and your schematic and PCB will be uploaded into either your personal Fusion cloud or your team's. From here, the file can be opened and interacted with just as you could in EAGLE, but we'll get to the specifics of that part later. 
+Fusion schematics and PCBs have full compatibility with EAGLE's .sch and .brd file types, meaning you can simply click "upload" from the Fusion folders menu and your schematic and PCB will be uploaded into either your personal Fusion cloud or your team's. From here, the file can be opened and interacted with just as you could in EAGLE, but we'll get to the specifics of that part later. 
+
+<figure class="third">
+	<img src="/assets/images/fusionGuideImg1.jpg">
+	<img src="/assets/images/fusionGuideImg2.jpg">
+	<img src="/assets/images/fusionGuideImg1.jpg">
+	<figcaption>Caption describing these three images.</figcaption>
+</figure>
+
 
 Fusion handles linking (F/B annotation) differently than EAGLE does, and in my opinion it's a massive improvement. Fusion makes use of a third file called an electronics design file to link a schematic and PCB. The great thing about this is that there's no dependance on naming or even being in the same folder -- the F/B annotation is completely facilitated by this third file. 
 
