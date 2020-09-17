@@ -1,5 +1,5 @@
 ---
-title: "Installing Arch Linux on my Lenovo Thinkpad X1 Extreme Gen 2"
+title: "Installing Arch Linux on my Lenovo Thinkpad X1 Extreme Gen 2 (In Progress)"
 date: 2020-09-15T15:34:30-04:00
 ---
 

@@ -1,12 +1,12 @@
 ---
-title: "Guide to Transitioning to Autodesk Fusion 360 from EAGLE"
+title: "Guide to Transitioning to Autodesk Fusion 360 from EAGLE (In Progress)"
 date: 2020-09-15T15:34:30-04:00
 ---
 
 If you're anything like me, you were interested Autodesk's decision to port EAGLE into Fusion 360, effectively merging the two programs, but were unsure with how to fully make the transition between the two pieces of software. This guide is my attempt to make that switch as painless as possible and go over what is the same -- and what is different -- between EAGLE and its 3D design counterpart.
 
 ## File System
-This guide is made with the assumption that the reader is already familiar with Fusion's file system, including the cloud storage, version control, and Fusion Teams. The new electronics design capabilities of Fusion fit seamlessly into that filesystem, meaning that out of the box your PCBs will now have cloud backups and the ability to roll back to previous versions, an area in which EAGLE was serverely behind the times. 
+This guide is made with the assumption that the reader is already familiar with Fusion's file system, including the cloud storage, version control, and Fusion Teams. The new electronics design capabilities of Fusion fit seamlessly into that filesystem, meaning that out of the box your PCBs will now have cloud backups and the ability to roll back to previous versions, an area in which EAGLE was severely behind the times. 
 
 Fusion schematics and PCBs have full compatibility with EAGLE's .sch and .brd file types, meaning you can simply click "upload" from the folders menu and your schematic and PCB will be uploaded into either your personal Fusion cloud or your team's. From here, the file can be opened and interacted with just as you could in EAGLE, but we'll get to the specifics of that part later. 
 
