@@ -21,6 +21,7 @@ twitter_username: username
 github_username: branalba
 minimal_mistakes_skin: dark
 search: true
+masthead_title:
 logo: "/assets/images/logo.png"
 
 # Build settings
