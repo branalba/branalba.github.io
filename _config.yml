@@ -51,7 +51,7 @@ include:
 collections:
   portfolio:
     output: true
-    permalink: /_portfolio/
+    permalink: /:collection/:path/
 
 # Plugins (previously gems:)
 plugins:
@@ -127,5 +127,5 @@ defaults:
       type: portfolio
     values:
       layout: single
-      author_profile: false
+      author_profile: true
       share: true

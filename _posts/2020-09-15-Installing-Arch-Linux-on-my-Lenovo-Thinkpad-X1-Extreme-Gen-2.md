@@ -1,6 +1,8 @@
 ---
 title: "Installing Arch Linux on my Lenovo Thinkpad X1 Extreme Gen 2 (In Progress)"
 date: 2020-09-15T15:34:30-04:00
+toc: true
+toc_sticky: true
 ---
 
 Recently I switched from my Microsoft Surface Book 2 to a Thinkpad X1 Extreme Gen 2, in no small part due to the former's compatibility issues with Linux. While a [custom kernel](https://github.com/linux-surface/linux-surface) does exist to make Linux work with Surface devices, the resulting setup remained too unstable for me to be comfortable using it as my daily driver, so by popular recommendation I'm making the switch to a Thinkpad. 
