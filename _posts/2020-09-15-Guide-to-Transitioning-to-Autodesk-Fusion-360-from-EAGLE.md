@@ -13,10 +13,10 @@ This guide is made with the assumption that the reader is already familiar with 
 Fusion schematics and PCBs have full compatibility with EAGLE's .sch and .brd file types, meaning you can simply click "upload" from the Fusion folders menu and your schematic and PCB will be uploaded into either your personal Fusion cloud or your team's. From here, the file can be opened and interacted with just as you could in EAGLE, but we'll get to the specifics of that part later. 
 
 <figure class="third">
-	<img src="/assets/images/fusionGuideImg1.jpg">
-	<img src="/assets/images/fusionGuideImg2.jpg">
-	<img src="/assets/images/fusionGuideImg1.jpg">
-	<figcaption>Caption describing these three images.</figcaption>
+    <a href="/assets/images/fusionGuideImg1.jpg"><img src="/assets/images/fusionGuideImg1.jpg"></a>	
+    <a href="/assets/images/fusionGuideImg2.jpg"><img src="/assets/images/fusionGuideImg2.jpg"></a>	
+    <a href="/assets/images/fusionGuideImg3.jpg"><img src="/assets/images/fusionGuideImg3.jpg"></a>	
+	<figcaption>Uploading an EAGLE schematic file to Fusion. Notice how the .sch filetype is recognized.</figcaption>
 </figure>
 
 
