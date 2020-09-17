@@ -51,7 +51,7 @@ include:
 collections:
   portfolio:
     output: true
-    permalink: /:collection/:path/
+    permalink: /_portfolio/
 
 # Plugins (previously gems:)
 plugins:
