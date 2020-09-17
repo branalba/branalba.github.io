@@ -48,6 +48,11 @@ include:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
+
 # Plugins (previously gems:)
 plugins:
   - jekyll-paginate
@@ -116,10 +121,11 @@ defaults:
     values:
       layout: single
       author_profile: true
-
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
+  # _portfolio
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: false
+      share: true
