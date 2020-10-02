@@ -38,7 +38,6 @@ I'll start by following the general [Arch install guide](https://wiki.archlinux.
 ## Post-Installation Steps
 
 ### Signing kernel for Secure Boot
- Also want to sign my arch kernel so I can turn on secure boot, based on the shim guide in the arch wiki. Also look into shifting arch install across drive and completely removing windows boot options, for when I uninstall windows eventually. Install plymouth (splash screen). Also look into drive encryption.
 
 ## Troubleshooting
 ### GPU Lost on Suspend or Lock
