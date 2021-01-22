@@ -74,10 +74,30 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Receive_IT(&huart4,uart_rx_buffer,1);
 	}
 ```
-### os
+One other useful function of pySerial is the ability to scan for serial ports. This can be useful when you have multiple ports open on the same PC, or when you want your program to automatically detect a serial port from a specific device. I use the following function in all of my serial communication projects, as it gets rid of the occassional headache associated with the same device getting assigned different port numbers:
+```Python
+# only the second module is strictly required, but you'll seldom be using this function without the rest of the serial module
+import serial,serial.tools.list_ports
 
-### sys
+def scan_serial_ports(keyword):
+    """scans the available serial ports and returns the port whose description contains the keyword
 
-## Encoding Data Packets
+    Args:
+        keyword (string): the keyword to look for in a port description
 
-##
+    Returns:
+        string: the port that satisfies the keyword or 0 if no matching port found
+    """
+	
+	# the magic line that gets the port number, description, and hardware ID for all connected serial devices
+    ports = serial.tools.list_ports.comports()
+
+	# loop through the ports
+    for port, desc, hwid in sorted(ports):
+        print_verbose("Found {}: {} [{}]".format(port,desc,hwid))
+        # return the port name if the sought device is connected
+		if keyword in desc:
+            return port
+    # throw an error output if the device was not found
+	return 0
+```
