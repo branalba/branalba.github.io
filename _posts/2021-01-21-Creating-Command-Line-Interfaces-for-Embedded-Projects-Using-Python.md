@@ -1,6 +1,6 @@
 ---
-title: "Guide to Transitioning from Autodesk EAGLE to Fusion 360 (In Progress)"
-date: 2020-09-15T15:34:30-04:00
+title: "Creating Command Line Interfaces for Embedded Projects Using Python"
+date: 2021-01-21T15:34:30-04:00
 toc: true
 toc_sticky: true
 ---
