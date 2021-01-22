@@ -31,6 +31,7 @@ tx_int = (42).to_bytes(1,"big")
 ser.write(tx_int)
 ```
 Throw in a while loop and some ```input()``` calls and you can see how this module alone elevates your ability to interface with your microcontroller. Of course, you'll need to write the corresponding code on the embedded side. Here's a simple pair of code snippets for a PC and STM32 microcontroller that has the microcontroller return bytes it recieves:
+
 **Client:**
 ```Python
 import serial
@@ -74,7 +75,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Receive_IT(&huart4,uart_rx_buffer,1);
 	}
 ```
-One other useful function of pySerial is the ability to scan for serial ports. This can be useful when you have multiple ports open on the same PC, or when you want your program to automatically detect a serial port from a specific device. I use the following function in all of my serial communication projects, as it gets rid of the occassional headache associated with the same device getting assigned different port numbers:
+One other useful function of pySerial is the ability to scan for serial ports. This can be useful when you have multiple ports open on the same PC, or when you want your program to automatically detect a serial port from a specific device. I use the following function in all of my serial communication clients, as it gets rid of the occassional headache associated with the same device getting assigned different port numbers:
 ```Python
 # only the second module is strictly required, but you'll seldom be using this function without the rest of the serial module
 import serial,serial.tools.list_ports
@@ -101,3 +102,92 @@ def scan_serial_ports(keyword):
     # throw an error output if the device was not found
 	return 0
 ```
+## Encoding Data Packets
+### Why Encode?
+The encoding of serial data might sound unnecessary at first -- even if the application requires a constant stream of data samples, such as the output of a gyroscope/accelerometer, can't you just terminate each data set with the newline character, slap a function like ```readline()``` on the client side, and be done with it? In many cases, yes, but this is neither good practice nor 100% reliable. To see why, first remember that the newline character is not inherently different from any other byte (in fact, you can use any byte or bytes as a newline character if you wish, the newline character is just the standard). Its ASCII code, or true binary representation, is simply ```00001010 = 10```. Remember, the only indicator pySerial uses to detect a "line" of serial data is the newline. So going back to the question of why encoding is useful, ask youself if using the number 10 as a trigger for the end of a packet is a reliable way to separate a stream of packets from one another.
+
+The answer, of course, is that it is not reliable. In fact, by relying on the number 10 to terminate a packet, we are resigning ourselves to splitting our data packets in two every time one of our bytes of actual data is equal to 10! Some serial communicators mitigate this issue by adding another "special" byte, the carriage return character ```'\r' = 00001101 = 13```. So an example data packet from a microcontroller would look like: ```"done\r\n"``` or ```[100,111,110,101,13,10]``` represented as a list of ASCII codes. However, it should be clear that all this does is reduce the likelihood of transmitting a bad packet. It is _less likely_, but far from impossible, to end up with the byte sequence ```00001101 00001010``` in a data packet compared to just ```00001010```. And in any situation in which you are counting up, perhaps keeping track of time or you are measuring a value that inherently will steadily increase, you are _guaranteed_ to encounter this sequence of bits if they represent a 16-bit integer or larger (specifically, it's the number 3,338).
+
+All of this is not to say that you shouldn't use the newline and carriage return approach to terminate your packets, just that doing so places a "forbidden" sequence of bytes your system cannot properly transmit. In some applications, this is perfectly fine, but in others it can be completely unacceptable. And in the context of a client, one that you won't want to muck around with while you're interacting with your project and may even deploy to a client eventually, you need a robust line of communication. The solution to this is not to continue adding bytes to our newline assignment -- we want a bulletproof solution, not one that only works most of the time. This is where encoding comes in. There are a lot of methods out there, but my favorite due to its simpliticy and low overhead (it only adds two extra bytes to an unencoded packet's length) is known as consistent overhead byte stuffing, or COBS.
+
+### COBS
+COBS directly addresses the problem of choosing a terminating byte (the terminating byte can be called the "delimiter") for a packet in a surprisingly direct way -- eliminate all occurences of the delimiter present in the original data packet by replacing them with a different value, so the chance of the packet "splitting" goes from slim to none. But then haven't we changed the content of the data packet? Clearly, we need some way of knowing what bytes in a data set were replaced. This is accomplished via the "overhead" byte, a single value appended to the beginning of the dataset. Its value is the number of bytes _after itself_ that a replaced byte is at. The replaced byte, in turn, has a value coresponding to the number of bytes after itself that the next replaced byte is at, on and on until the final replaced byte points to the number of bytes after itself that the true delimiter byte is at. The receiver (decoder) knows this is the true delimiter byte because it is already the delimiter value -- it was never replaced.
+
+To illustrate the above method, let's start with a sample packet of data that we need to encode: ```[45,23,0,249,21,0,53]```. Let's say we've chosen the number 0 as our delimiter. Thus, our partially encoded data set becomes ```[45,23,0,249,21,0,53,0]```. Now, we add the overhead bit, which should have a value telling us how many bytes into the data set that the first instance of the delimiter byte 0 appears. In this case, the first 0 in the data set is the third byte in the list. Thus, our overhead byte is 3 and our packet now looks like ```[3,45,23,0,249,21,0,53,0]```. The last step is to replace the 0s in the data set. The 0 that our overhead byte pointed to needs to be replaced by the number of bytes after iself the next 0 is at, which from our dataset turns out to be another 3. That 0, in turn, needs to point to the next one, which is also our delimiter and is two items away from that second 0, so we replace it with 2. That's it! Our final encoded data set is now ```[3,45,23,3,249,21,2,53,0]```. All a recipient, or decoder, needs to know is the value of the delimiter byte. Everything else is easy -- the first byte recieved will be the overhead byte, and the decoder therefore knows to throw it away after using it to find the location of the first replaced 0. 
+
+Think of the overhead byte like the beginning of a treasure map -- it points you to the next clue, which points you to the next and the next until the last clue finally points you to the treasure. In this case, however, the clues are our overhead byte followed by the replaced 0s, and the treasure is our delimiter byte. If you're still having trouble understanding COBS, check out its [Wikipedia page](https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing) for another perspective. 
+
+### Example
+Below are two implementations of COBS, an encoder written in C (intended for a microcontroller) and a decoder written in Python (intended for our CLI client). 
+
+**Encoder:**
+```C
+/*
+ * @brief Encodes a packet of data using the Consistent Overhead Byte Stuffing method
+ * @params
+ * @retval none
+ */
+
+void COBS_Encode_Packet(uint8_t *input, uint8_t input_len, uint8_t *output, uint8_t output_len, uint8_t delimiter) {
+	int offset_index;
+	int count = 0;
+
+	//Set overhead byte to 0
+	output [0] = 0;
+
+	//Loop through output buffer
+	for(int i=1;i<(output_len-1);i++) {
+		count++;
+		if (input[i-1] == delimiter) {
+			if (output[0] == 0) {
+				output[0] = count;
+			} else {
+				output[offset_index] = count;
+			}
+			offset_index = i;
+			count = 0;
+		}
+		output[i] = input[i-1];
+	}
+
+	output[output_len-1] = delimiter;
+	if(output[0] == 0) {
+		output[0] = count+1;
+	} else {
+		output[offset_index] = count+1;
+	}
+}
+```
+**Decoder:**
+```Python
+def COBS_Decode_Packet(delim):
+    """Decodes incoming serial data according to the Consistent Overhead Byte Stuffing method
+
+    Args:
+        delim (8-bit integer): number used to indicate end of packet, needed for decoding
+
+    Returns:
+        list: Int list containing the decoded packet
+    """
+    out = []
+    count = 0
+    overhead_recieved = False
+    byte = int.from_bytes(ser.read(),"big")
+
+    while (byte != delim):
+        if overhead_recieved == False:
+            pos = byte
+            overhead_recieved = True
+        else:
+            if count == pos:
+                out.append(delim)
+                pos = count + byte
+            else:
+                out.append(byte)
+        count += 1
+        byte = int.from_bytes(ser.read(),"big")
+
+    return out
+```
+Of course the reverse is also nice to have (a decoder on your microcontroller and an encoder on your client) but the need for the former is far more common -- rarely do you need to stream a ton of arbitrary data to a microcontroller from your PC. Commands sent from your PC are generally specific command words that you can choose, avoiding the need for encoding and decoding by avoiding the use of newline or carriage return. Something I like to do for commands, to keep things simple, is use single bytes as commands to a microcontroller. If it's only processing one byte at a time, there's no need for any sort of packet termination. The byte's presence alone terminates the "packet".
+
