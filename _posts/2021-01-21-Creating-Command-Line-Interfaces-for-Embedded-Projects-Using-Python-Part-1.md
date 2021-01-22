@@ -5,7 +5,7 @@ toc: true
 toc_sticky: true
 ---
 
-Despite the embedded nature of embedded systems, a project will inevitably come along where you need something other than a debug probe between your dev board and PC. Maybe you want to send a command to start data collection and get that data sent back to your PC to stick into a spreadsheet for further analysis, or you want to be able to collect diagnostics from your device without the hassle of a debugger. There are a number of tools out there that have this basic functionality built into them in some form, such as the serial monitor present in programs like the Arduino IDE or my favorite VSCode extension, PlatformIO. But solutions like these remain a tedious ping-ponging of discrete serial lines, fine for simple applications but difficult to expand upon and impossible to deliver as a product to an possible end user. This blog post is meant for those who need more, who want a reliable, specially-made application to interface with their project in flexible and powerful ways. Unsurprisingly, the easy and cross-platform solution is found in Python. We'll be starting with an overview of a few useful modules that make all of this possible, cover how to handle sending complex and large packets of serial data using encoding, and examine good practice for designing easy-to-use command line interfaces that self-document.
+Despite the embedded nature of embedded systems, a project will inevitably come along where you need something other than a debug probe between your dev board and PC. Maybe you want to send a command to start data collection and get that data sent back to your PC to stick into a spreadsheet for further analysis, or you want to be able to collect diagnostics from your device without the hassle of a debugger. There are a number of tools out there that have this basic functionality built into them in some form, such as the serial monitor present in programs like the Arduino IDE or my favorite VSCode extension, PlatformIO. But solutions like these remain a tedious ping-ponging of discrete serial lines, fine for simple applications but difficult to expand upon and impossible to deliver as a product to an possible end user. This blog post is meant for those who need more, who want a reliable, specially-made application to interface with their project in flexible and powerful ways. Unsurprisingly, the easy and cross-platform solution is found in Python. We'll be starting with an overview of useful modules that make all of this possible and cover how to handle sending complex and large packets of serial data using encoding. In a later post, I'll examine some more helpful modules, as well as good practice for designing easy-to-use command line interfaces that self-document.
 
 ## Useful Modules
 ### pyserial
@@ -70,7 +70,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	{
 		// send received byte over UART
 		HAL_UART_Transmit(huart,uart_rx_buffer,1,10);
-		
+
+		// send newline character
+		char newline[] = "\n" 
+		HAL_UART_Transmit(huart,(uint8_t *)newline,1,10);
+			
 		// reenable UART interrupt
 		HAL_UART_Receive_IT(&huart4,uart_rx_buffer,1);
 	}

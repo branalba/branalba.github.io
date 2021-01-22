@@ -16,7 +16,7 @@
 title: Brandon Alba
 email: branalba42@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Brandon Alba's online CV and portfolio.
+  My blog and online project portfolio, documenting my journey learning embedded systems.
 twitter_username: username
 github_username: branalba
 minimal_mistakes_skin: dark
@@ -48,7 +48,7 @@ include:
 #   - vendor/ruby/
 
 collections:
-  portfolio:
+  projecs:
     output: true
     permalink: /:collection/:path/
 
@@ -120,10 +120,10 @@ defaults:
     values:
       layout: single
       author_profile: true
-  # _portfolio
+  # _projecs
   - scope:
       path: ""
-      type: portfolio
+      type: projecs
     values:
       layout: single
       author_profile: true
