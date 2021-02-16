@@ -11,7 +11,7 @@ Despite the embedded nature of embedded systems, a project will inevitably come 
 ### pyserial
 If you've ever explored communicating with embedded devices using Python, chances are you've encountered the popular and powerful [pySerial](https://pyserial.readthedocs.io/en/latest/pyserial.html) module. This module lets you communicate over the serial port on all major operating systems using Python, and is the most critical and fundamental module mentioned in this post. Alone, it replaces the Arduino-style serial monitor as the communication medium between your PC and microcontroller. It's also incredibly simple to implement:
 ```Python
-# install with "pip install serial"
+# install with "pip install pyserial"
 import serial
 
 serial_port = "/dev/ttyUSB0" # or COM3, for example, on Windows
@@ -48,7 +48,7 @@ while True:
 **STM32 (HAL Library):**
 ```C
 // receive buffer for UART
-uart_rx_buffer[1];
+uint8_t uart_rx_buffer[1];
 
 int main(void) {
 	// stuff
