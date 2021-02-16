@@ -5,7 +5,6 @@ toc: true
 toc_sticky: true
 ---
 
-# Road to Bare-Metal Embedded Part 1: Dropping the IDE
 I'm intending this to be the start of a series documenting my journey from a traditional IDE to my own bare-metal toolchain for embedded development. Don't listen to what the elitists tell you -- you shouldn't have to leverage a degree in computer science or resign yourself to poor code syntax assistance in order to use Vim to develop software. In this article I'll be demonstrating how I switched from Visual Studio Code to Vim for my primary code editor, without losing any of the features that kept me on VSCode so long in the first place -- namely, robust code autocompletion and syntax checking along with the easy and powerful PlatformIO IDE extension for uploading and debugging my embedded projects. 
 
 For the past six or seven months, I'd only used Vim as a drop-in ```nano``` replacement, which is to say I'd only break it out when I needed to edit config files or test a quick python project. I did like what it had to offer, and even ended up installing the excellent [vscode-neovim](https://github.com/asvetliakov/vscode-neovim) extension to get me Vim-like shortcuts and functionality in VSCode, but never considered it as a contender for an IDE replacement due to what I perceived as a lack of features. I did try out Vim plugins that added VSCode-like functionality such YouCompleteMe for code completion, but I always felt that I was losing something in the transition.
