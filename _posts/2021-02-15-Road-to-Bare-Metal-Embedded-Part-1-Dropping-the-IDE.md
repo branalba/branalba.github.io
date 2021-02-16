@@ -151,6 +151,6 @@ At this point I restarted Vim for good measure and opened up the blink sketch fr
 
 Syntax errors were working, and under further inspection the code completion was even suggesting libraries found under PlatformIO include paths! In my testing so far, all other types of code completion in C/C++ seem to be working exactly as I liked them in VSCode.
 
-### Conclusion
+## Conclusion
 
 There's absolutely nothing wrong with using an IDE or mainstream text editor as your development platform -- I definitely was a little skeptical going into this transition -- but hopefully this article helped demonstrate that those who do want to transfer don't have to lose functionality or the ability to make use of powerful, open-source extensions without jumping through dozens of config hoops. In my next article in this series, I'll be taking a look at doing STM32 development in Vim using STM32CubeMX to generate projects and handle compilation, as well as comparing a couple different standalone tools to flash and debug programs.
