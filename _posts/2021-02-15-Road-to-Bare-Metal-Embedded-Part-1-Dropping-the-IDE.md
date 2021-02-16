@@ -1,5 +1,5 @@
 ---
-title: "Creating Command Line Interfaces for Embedded Projects Using Python - Part 1: Communication Between Your Client and Device"
+title: "Road to Bare-Metal Embedded Part 1: Dropping the IDE"
 date: 2021-02-15T23:06:30-04:00
 toc: true
 toc_sticky: true
